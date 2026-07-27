@@ -90,7 +90,7 @@ jobs:
         working-directory: pokerogue-src
         env:
           VITE_BYPASS_LOGIN: '1'
-        run: pnpm build:app
+        run: pnpm build:dev
 
       - name: Apply post-build patches
         shell: bash
