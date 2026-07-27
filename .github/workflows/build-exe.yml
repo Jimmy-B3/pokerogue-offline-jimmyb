@@ -60,15 +60,6 @@ jobs:
         shell: bash
         run: bash scripts/apply-patches.sh exe
 
-      - name: Inject build number into banner
-        shell: bash
-        run: |
-          BUILD_NUM=${{ inputs.build_number || github.run_number }}
-          if [ "${{ inputs.dev }}" = "true" ]; then
-            sed -i "s/BUILD_NUMBER_PLACEHOLDER/${BUILD_NUM} DEV/g" pokerogue-src/src/ui/handlers/title-ui-handler.ts
-          else
-            sed -i "s/BUILD_NUMBER_PLACEHOLDER/${BUILD_NUM}/g" pokerogue-src/src/ui/handlers/title-ui-handler.ts
-          fi
 
       - name: Install PokeRogue dependencies
         working-directory: pokerogue-src
@@ -113,12 +104,6 @@ jobs:
           cp configs/desktop/electron/electron-builder.windows.json pokerogue-src/electron-builder.json
           cp docs/appIcon.ico pokerogue-src/appIcon.ico
           cp pokerogue-src/full_unlocks.prsv pokerogue-src/dist/full_unlocks.prsv
-
-      - name: Inject Google OAuth credentials into main.cjs
-        shell: bash
-        run: |
-          sed -i "s/GOOGLE_DESKTOP_CLIENT_ID_PLACEHOLDER/${{ secrets.GOOGLE_DESKTOP_CLIENT_ID }}/g" pokerogue-src/main.cjs
-          sed -i "s/GOOGLE_DESKTOP_CLIENT_SECRET_PLACEHOLDER/${{ secrets.GOOGLE_DESKTOP_CLIENT_SECRET }}/g" pokerogue-src/main.cjs
 
       - name: Set electron main in package.json
         working-directory: pokerogue-src

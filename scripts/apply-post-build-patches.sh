@@ -11,13 +11,5 @@ PLATFORM="${1:-all}"
 
 source "$(dirname "$0")/patch-lib.sh"
 
-# ── Mobile (iOS + Android) ────────────────────────────────────────────────────
-if [[ "$PLATFORM" == "mobile" || "$PLATFORM" == "android" ]]; then
-
-  apply_patch "notch-fix.js"           mobile
-  apply_patch "fix-browser.js"         mobile
-  apply_patch "canvas-scale-fix.js"    mobile
-
-fi
 
 echo "All post-build patches applied successfully (platform: $PLATFORM)."
